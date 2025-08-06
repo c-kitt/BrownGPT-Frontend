@@ -46,7 +46,7 @@ export const ChatInput = ({ onSendMessage, disabled = false, placeholder = "Ask 
             onClick={handleSubmit}
             disabled={disabled || !message.trim()}
             size="icon"
-            className="absolute right-2 bottom-2 bg-[hsl(var(--brown-red))] hover:bg-[hsl(var(--brown-red))/90] text-white"
+            className="absolute left-1/2 transform -translate-x-1/2 bottom-2 bg-[hsl(var(--brown-red))] hover:bg-[hsl(var(--brown-red))/90] text-white"
           >
             <Send className="w-4 h-4" />
           </Button>
