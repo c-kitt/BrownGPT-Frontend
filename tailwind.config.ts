@@ -19,9 +19,8 @@ export default {
 		},
 		extend: {
 			fontFamily: {
-				'freight': ['Inter', 'Helvetica Neue', 'Arial', 'sans-serif'], // Freight Sans alternative
-				'gotham': ['Roboto Condensed', 'Arial Narrow', 'sans-serif'], // Gotham Narrow alternative
-				'sans': ['Inter', 'Helvetica Neue', 'Arial', 'sans-serif'],
+				'serif': ['Source Serif Pro', 'serif'],
+				'sans': ['Lato', 'sans-serif'],
 			},
 			colors: {
 				border: 'hsl(var(--border))',

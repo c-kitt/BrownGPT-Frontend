@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto+Condensed:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+Pro:wght@400;600;700&family=Lato:wght@400;500;600&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -7,61 +7,59 @@
 /* Brown University Design System */
 @layer base {
   :root {
-    /* Brand Color Palette */
-    --brand-red: 1 96% 38%; /* #C00404 */
-    --brand-brown: 21 31% 23%; /* #4E3629 */
-    --brand-white: 0 0% 100%; /* #FFFFFF */
-    --brand-yellow: 44 100% 59%; /* #FFC72C */
-    --brand-gray: 209 11% 64%; /* #98A4AE */
-    --brand-cream: 45 29% 97%; /* Cream background */
+    /* Brown University Color Palette */
+    --brown-parchment: 30 25% 96%; /* #f7f5f2 */
+    --brown-dark: 22 29% 24%; /* #4e3629 */
+    --brown-red: 351 68% 38%; /* #a51c30 */
+    --brown-light: 25 15% 87%; /* #e0dcd7 */
     
     /* Primary Design System */
-    --background: var(--brand-cream);
-    --foreground: var(--brand-brown);
+    --background: var(--brown-parchment);
+    --foreground: var(--brown-dark);
     
-    --card: 21 31% 25%;
-    --card-foreground: var(--brand-white);
+    --card: 0 0% 100%;
+    --card-foreground: var(--brown-dark);
     
-    --popover: 21 31% 25%;
-    --popover-foreground: var(--brand-white);
+    --popover: 0 0% 100%;
+    --popover-foreground: var(--brown-dark);
     
-    --primary: var(--brand-red);
-    --primary-foreground: var(--brand-white);
+    --primary: var(--brown-dark);
+    --primary-foreground: 0 0% 100%;
     
-    --secondary: var(--brand-yellow);
-    --secondary-foreground: var(--brand-brown);
+    --secondary: var(--brown-light);
+    --secondary-foreground: var(--brown-dark);
     
-    --muted: var(--brand-gray);
-    --muted-foreground: var(--brand-white);
+    --muted: var(--brown-light);
+    --muted-foreground: 22 29% 45%;
     
-    --accent: var(--brand-yellow);
-    --accent-foreground: var(--brand-brown);
+    --accent: var(--brown-red);
+    --accent-foreground: 0 0% 100%;
     
-    --destructive: var(--brand-red);
-    --destructive-foreground: var(--brand-white);
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
     
-    --border: var(--brand-gray);
-    --input: 21 31% 30%;
-    --ring: var(--brand-yellow);
+    --border: 25 15% 90%;
+    --input: 25 15% 90%;
+    --ring: var(--brown-red);
     
     --radius: 0.75rem;
     
     /* Chat-specific colors */
-    --chat-user-bg: var(--brand-red);
-    --chat-user-text: var(--brand-white);
-    --chat-ai-bg: var(--brand-gray);
-    --chat-ai-text: var(--brand-white);
-    --chat-ai-border: var(--brand-yellow);
+    --chat-user-bg: var(--brown-light);
+    --chat-user-text: var(--brown-dark);
+    --chat-ai-bg: 0 0% 100%;
+    --chat-ai-text: var(--brown-red);
+    --chat-ai-border: var(--brown-dark);
 
     /* Sidebar colors */
-    --sidebar-background: 21 31% 25%;
-    --sidebar-foreground: var(--brand-white);
-    --sidebar-primary: var(--brand-yellow);
-    --sidebar-primary-foreground: var(--brand-brown);
-    --sidebar-accent: var(--brand-red);
-    --sidebar-accent-foreground: var(--brand-white);
-    --sidebar-border: var(--brand-gray);
-    --sidebar-ring: var(--brand-yellow);
+    --sidebar-background: var(--brown-parchment);
+    --sidebar-foreground: var(--brown-dark);
+    --sidebar-primary: var(--brown-red);
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: var(--brown-light);
+    --sidebar-accent-foreground: var(--brown-dark);
+    --sidebar-border: 25 15% 88%;
+    --sidebar-ring: var(--brown-red);
     
     /* Animations and transitions */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -75,11 +73,11 @@
   }
 
   body {
-    @apply bg-background text-foreground font-freight;
+    @apply bg-background text-foreground font-serif;
   }
   
   h1, h2, h3, h4, h5, h6 {
-    @apply font-gotham;
+    @apply font-sans;
   }
 }
 

@@ -30,7 +30,7 @@ export const ChatInput = ({ onSendMessage, disabled = false, placeholder = "Ask 
   return (
     <div className="sticky bottom-0 bg-background border-t border-[hsl(var(--border))] p-4">
       <div className="max-w-4xl mx-auto">
-        <div className="relative flex items-center space-x-2">
+        <div className="relative flex items-end space-x-2">
           <Textarea
             value={message}
             onChange={(e) => setMessage(e.target.value)}
@@ -46,7 +46,7 @@ export const ChatInput = ({ onSendMessage, disabled = false, placeholder = "Ask 
             onClick={handleSubmit}
             disabled={disabled || !message.trim()}
             size="icon"
-            className="absolute right-3 top-1/2 transform -translate-y-1/2 bg-[hsl(var(--brown-red))] hover:bg-[hsl(var(--brown-red))/90] text-white"
+            className="absolute left-1/2 transform -translate-x-1/2 bottom-2 bg-[hsl(var(--brown-red))] hover:bg-[hsl(var(--brown-red))/90] text-white"
           >
             <Send className="w-4 h-4" />
           </Button>
