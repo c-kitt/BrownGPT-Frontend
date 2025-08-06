@@ -30,7 +30,7 @@ export const ChatInput = ({ onSendMessage, disabled = false, placeholder = "Ask 
   return (
     <div className="sticky bottom-0 bg-background border-t border-[hsl(var(--border))] p-4">
       <div className="max-w-4xl mx-auto">
-        <div className="relative flex items-end space-x-2">
+        <div className="relative flex items-center space-x-2">
           <Textarea
             value={message}
             onChange={(e) => setMessage(e.target.value)}
