@@ -13,10 +13,11 @@
     --brand-white: 0 0% 100%; /* #FFFFFF */
     --brand-yellow: 44 100% 59%; /* #FFC72C */
     --brand-gray: 209 11% 64%; /* #98A4AE */
+    --brand-cream: 45 29% 97%; /* Cream background */
     
     /* Primary Design System */
-    --background: var(--brand-brown);
-    --foreground: var(--brand-white);
+    --background: var(--brand-cream);
+    --foreground: var(--brand-brown);
     
     --card: 21 31% 25%;
     --card-foreground: var(--brand-white);
