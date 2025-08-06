@@ -24,6 +24,18 @@ const Index = () => {
   const [questionStep, setQuestionStep] = useState(0); // 0: year, 1: semester, 2: concentration
   const [userResponses, setUserResponses] = useState<{year?: string, semester?: string, concentration?: string}>({});
 
+  // Auto-start conversation when component mounts
+  useEffect(() => {
+    if (messages.length === 0) {
+      setTimeout(() => {
+        addMessage("Hi there! Let's get started.", false);
+        setTimeout(() => {
+          addMessage("What year are you?", false, YEAR_OPTIONS);
+        }, 1000);
+      }, 500);
+    }
+  }, []);
+
   const addMessage = (content: string, isUser: boolean, options?: string[]) => {
     const newMessage: Message = {
       id: Date.now().toString(),
@@ -36,6 +48,9 @@ const Index = () => {
   };
 
   const handleOptionClick = (option: string) => {
+    if (!hasStartedChat) {
+      setHasStartedChat(true);
+    }
     addMessage(option, true);
     handleResponse(option);
   };
@@ -72,12 +87,9 @@ const Index = () => {
   const handleSendMessage = (message: string) => {
     if (!hasStartedChat) {
       setHasStartedChat(true);
-      // Start with greeting and first question
-      addMessage("Hi there! Let's get started.", false);
-      setTimeout(() => {
-        addMessage("What year are you?", false, YEAR_OPTIONS);
-      }, 1000);
-    } else if (questionStep === 2) {
+    }
+    
+    if (questionStep === 2) {
       // Handle concentration input
       addMessage(message, true);
       handleResponse(message);
@@ -106,9 +118,10 @@ const Index = () => {
       <div className="flex-1 flex flex-col">
         <ScrollArea className="flex-1">
           <div className="max-w-4xl mx-auto p-6">
-            {!hasStartedChat ? (
+            {!hasStartedChat && (
               <InitialPrompts onPromptClick={handleSendMessage} />
-            ) : (
+            )}
+            {messages.length > 0 && (
               <div className="space-y-0">
                 {messages.map((message) => (
                   <ChatBubble
