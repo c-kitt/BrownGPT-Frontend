@@ -11,55 +11,60 @@ interface Message {
   content: string;
   isUser: boolean;
   timestamp: Date;
+  options?: string[];
 }
 
-const QUESTIONS = [
-  "What's your concentration?",
-  "What semester/year are you planning for?", 
-  "What year are you?"
-];
+const YEAR_OPTIONS = ["Freshman", "Sophomore", "Junior", "Senior"];
+const SEMESTER_OPTIONS = ["Fall 2025", "Spring 2026"];
 
 const Index = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isTyping, setIsTyping] = useState(false);
   const [hasStartedChat, setHasStartedChat] = useState(false);
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [userResponses, setUserResponses] = useState<string[]>([]);
+  const [questionStep, setQuestionStep] = useState(0); // 0: year, 1: semester, 2: concentration
+  const [userResponses, setUserResponses] = useState<{year?: string, semester?: string, concentration?: string}>({});
 
-  const addMessage = (content: string, isUser: boolean) => {
+  const addMessage = (content: string, isUser: boolean, options?: string[]) => {
     const newMessage: Message = {
       id: Date.now().toString(),
       content,
       isUser,
       timestamp: new Date(),
+      options
     };
     setMessages(prev => [...prev, newMessage]);
   };
 
-  const simulateAIResponse = (userMessage: string) => {
+  const handleOptionClick = (option: string) => {
+    addMessage(option, true);
+    handleResponse(option);
+  };
+
+  const handleResponse = (response: string) => {
     setIsTyping(true);
     
-    // Log user response
-    console.log(`User response to question ${currentQuestionIndex}: ${userMessage}`);
-    
-    // Store user response
-    const updatedResponses = [...userResponses, userMessage];
-    setUserResponses(updatedResponses);
-    
-    // Simulate AI thinking time
     setTimeout(() => {
       setIsTyping(false);
       
-      // Check if we need to ask the next question
-      if (currentQuestionIndex < QUESTIONS.length - 1) {
-        const nextQuestion = QUESTIONS[currentQuestionIndex + 1];
-        addMessage(nextQuestion, false);
-        setCurrentQuestionIndex(currentQuestionIndex + 1);
+      if (questionStep === 0) {
+        // Year question answered
+        console.log(`User year: ${response}`);
+        setUserResponses(prev => ({ ...prev, year: response }));
+        setQuestionStep(1);
+        addMessage("What semester are you planning for?", false, SEMESTER_OPTIONS);
+      } else if (questionStep === 1) {
+        // Semester question answered
+        console.log(`User semester: ${response}`);
+        setUserResponses(prev => ({ ...prev, semester: response }));
+        setQuestionStep(2);
+        addMessage("What concentration are you interested in or currently studying?", false);
       } else {
-        // All questions answered, provide summary response
-        console.log('All user responses:', updatedResponses);
-        const response = "Perfect! I now have all the information I need to help you. Based on your responses, I can assist you with course planning, concentration requirements, and making the most of Brown's Open Curriculum. What would you like to explore first?";
-        addMessage(response, false);
+        // Concentration question answered
+        console.log(`User concentration: ${response}`);
+        const finalResponses = { ...userResponses, concentration: response };
+        setUserResponses(finalResponses);
+        console.log('All user responses:', finalResponses);
+        addMessage("Perfect! I now have all the information I need to help you. Based on your responses, I can assist you with course planning, concentration requirements, and making the most of Brown's Open Curriculum. What would you like to explore first?", false);
       }
     }, 1500);
   };
@@ -67,15 +72,22 @@ const Index = () => {
   const handleSendMessage = (message: string) => {
     if (!hasStartedChat) {
       setHasStartedChat(true);
-      // Start with first question
-      addMessage(message, true);
+      // Start with greeting and first question
+      addMessage("Hi there! Let's get started.", false);
       setTimeout(() => {
-        addMessage(QUESTIONS[0], false);
-        setCurrentQuestionIndex(0);
+        addMessage("What year are you?", false, YEAR_OPTIONS);
       }, 1000);
-    } else {
+    } else if (questionStep === 2) {
+      // Handle concentration input
       addMessage(message, true);
-      simulateAIResponse(message);
+      handleResponse(message);
+    } else {
+      // Regular chat after onboarding
+      addMessage(message, true);
+      // Add basic AI response for now
+      setTimeout(() => {
+        addMessage("I'm here to help with your Brown academic questions!", false);
+      }, 1000);
     }
   };
 
@@ -83,8 +95,8 @@ const Index = () => {
     setMessages([]);
     setHasStartedChat(false);
     setIsTyping(false);
-    setCurrentQuestionIndex(0);
-    setUserResponses([]);
+    setQuestionStep(0);
+    setUserResponses({});
   };
 
   return (
@@ -95,9 +107,7 @@ const Index = () => {
         <ScrollArea className="flex-1">
           <div className="max-w-4xl mx-auto p-6">
             {!hasStartedChat ? (
-              <div className="flex items-center justify-center min-h-[60vh]">
-                <InitialPrompts onPromptClick={handleSendMessage} />
-              </div>
+              <InitialPrompts onPromptClick={handleSendMessage} />
             ) : (
               <div className="space-y-0">
                 {messages.map((message) => (
@@ -105,6 +115,8 @@ const Index = () => {
                     key={message.id}
                     message={message.content}
                     isUser={message.isUser}
+                    options={message.options}
+                    onOptionClick={handleOptionClick}
                   />
                 ))}
                 {isTyping && <TypingIndicator />}

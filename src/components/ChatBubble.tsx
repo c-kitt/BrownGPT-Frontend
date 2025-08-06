@@ -1,22 +1,41 @@
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 
 interface ChatBubbleProps {
   message: string;
   isUser: boolean;
   className?: string;
+  options?: string[];
+  onOptionClick?: (option: string) => void;
 }
 
-export const ChatBubble = ({ message, isUser, className }: ChatBubbleProps) => {
+export const ChatBubble = ({ message, isUser, className, options, onOptionClick }: ChatBubbleProps) => {
   return (
     <div className={cn("flex w-full mb-4", isUser ? "justify-end" : "justify-start")}>
-      <div
-        className={cn(
-          "text-base leading-relaxed",
-          isUser ? "chat-message-user" : "chat-message-ai",
-          className
+      <div className="max-w-[80%]">
+        <div
+          className={cn(
+            "text-base leading-relaxed",
+            isUser ? "chat-message-user" : "chat-message-ai",
+            className
+          )}
+        >
+          {message}
+        </div>
+        {options && options.length > 0 && !isUser && (
+          <div className="mt-3 flex flex-wrap gap-2">
+            {options.map((option, index) => (
+              <Button
+                key={index}
+                variant="outline"
+                onClick={() => onOptionClick?.(option)}
+                className="border-[hsl(var(--brown-dark))] text-[hsl(var(--brown-dark))] hover:bg-[hsl(var(--brown-light))]"
+              >
+                {option}
+              </Button>
+            ))}
+          </div>
         )}
-      >
-        {message}
       </div>
     </div>
   );
