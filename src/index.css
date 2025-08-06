@@ -84,11 +84,11 @@
 @layer components {
   /* Chat Message Styles */
   .chat-message-user {
-    @apply bg-[hsl(var(--chat-user-bg))] text-[hsl(var(--chat-user-text))] rounded-2xl px-4 py-3 max-w-[80%] ml-auto shadow-sm;
+    @apply bg-[hsl(var(--chat-user-bg))] text-[hsl(var(--chat-user-text))] rounded-2xl px-4 py-3 max-w-[85%] min-w-[200px] ml-auto shadow-sm whitespace-pre-wrap break-words;
   }
   
   .chat-message-ai {
-    @apply bg-[hsl(var(--chat-ai-bg))] text-[hsl(var(--chat-ai-text))] border border-[hsl(var(--chat-ai-border))] rounded-2xl px-4 py-3 max-w-[80%] mr-auto shadow-sm;
+    @apply bg-[hsl(var(--chat-ai-bg))] text-[hsl(var(--chat-ai-text))] border border-[hsl(var(--chat-ai-border))] rounded-2xl px-4 py-3 max-w-[85%] min-w-[200px] mr-auto shadow-sm whitespace-pre-wrap break-words;
   }
   
   /* Typing Animation */
