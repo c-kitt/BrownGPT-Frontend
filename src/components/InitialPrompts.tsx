@@ -21,8 +21,8 @@ export const InitialPrompts = ({
   }];
   return <div className="max-w-2xl mx-auto space-y-4">
       <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold text-[hsl(var(--brown-dark))] mb-2 font-sans">How can I help, Bruno?</h1>
-        <p className="text-lg text-[hsl(var(--brown-red))] font-medium">
+        <h1 className="text-3xl font-bold text-[hsl(var(--brown-dark))] mb-2 font-sans text-center">How can I help, Bruno?</h1>
+        <p className="text-lg text-[hsl(var(--brown-red))] font-medium text-center">
           Welcome to BrownGPT. Let's make your Open Curriculum work for you.
         </p>
       </div>

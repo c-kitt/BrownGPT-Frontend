@@ -13,10 +13,18 @@ interface Message {
   timestamp: Date;
 }
 
+const QUESTIONS = [
+  "What's your concentration?",
+  "What semester/year are you planning for?", 
+  "What year are you?"
+];
+
 const Index = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isTyping, setIsTyping] = useState(false);
   const [hasStartedChat, setHasStartedChat] = useState(false);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [userResponses, setUserResponses] = useState<string[]>([]);
 
   const addMessage = (content: string, isUser: boolean) => {
     const newMessage: Message = {
@@ -31,39 +39,52 @@ const Index = () => {
   const simulateAIResponse = (userMessage: string) => {
     setIsTyping(true);
     
+    // Log user response
+    console.log(`User response to question ${currentQuestionIndex}: ${userMessage}`);
+    
+    // Store user response
+    const updatedResponses = [...userResponses, userMessage];
+    setUserResponses(updatedResponses);
+    
     // Simulate AI thinking time
     setTimeout(() => {
       setIsTyping(false);
       
-      // Simple responses based on the initial prompts
-      let response = "";
-      if (userMessage.toLowerCase().includes("concentration") || userMessage.toLowerCase().includes("major")) {
-        response = "Great! I'd love to help you with your concentration. What field are you interested in or currently studying? Brown's Open Curriculum gives you incredible flexibility to explore your passions.";
-      } else if (userMessage.toLowerCase().includes("semester") || userMessage.toLowerCase().includes("planning")) {
-        response = "Planning ahead is smart! What semester are you thinking about? I can help you map out course sequences and make sure you're on track for your goals.";
-      } else if (userMessage.toLowerCase().includes("year") || userMessage.toLowerCase().includes("freshman") || userMessage.toLowerCase().includes("sophomore")) {
-        response = "Thanks for letting me know! Each year at Brown brings unique opportunities. I can help you navigate course selection, research opportunities, and make the most of your time on the Hill.";
+      // Check if we need to ask the next question
+      if (currentQuestionIndex < QUESTIONS.length - 1) {
+        const nextQuestion = QUESTIONS[currentQuestionIndex + 1];
+        addMessage(nextQuestion, false);
+        setCurrentQuestionIndex(currentQuestionIndex + 1);
       } else {
-        response = "That's a great question! As your Brown academic assistant, I'm here to help you navigate the Open Curriculum, plan your courses, explore concentrations, and make the most of your Brown experience. What would you like to know more about?";
+        // All questions answered, provide summary response
+        console.log('All user responses:', updatedResponses);
+        const response = "Perfect! I now have all the information I need to help you. Based on your responses, I can assist you with course planning, concentration requirements, and making the most of Brown's Open Curriculum. What would you like to explore first?";
+        addMessage(response, false);
       }
-      
-      addMessage(response, false);
     }, 1500);
   };
 
   const handleSendMessage = (message: string) => {
     if (!hasStartedChat) {
       setHasStartedChat(true);
+      // Start with first question
+      addMessage(message, true);
+      setTimeout(() => {
+        addMessage(QUESTIONS[0], false);
+        setCurrentQuestionIndex(0);
+      }, 1000);
+    } else {
+      addMessage(message, true);
+      simulateAIResponse(message);
     }
-    
-    addMessage(message, true);
-    simulateAIResponse(message);
   };
 
   const handleNewChat = () => {
     setMessages([]);
     setHasStartedChat(false);
     setIsTyping(false);
+    setCurrentQuestionIndex(0);
+    setUserResponses([]);
   };
 
   return (
