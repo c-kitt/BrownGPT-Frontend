@@ -19,8 +19,9 @@ export default {
 		},
 		extend: {
 			fontFamily: {
-				'serif': ['Source Serif Pro', 'serif'],
-				'sans': ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
+				'freight': ['Inter', 'Helvetica Neue', 'Arial', 'sans-serif'], // Freight Sans alternative
+				'gotham': ['Roboto Condensed', 'Arial Narrow', 'sans-serif'], // Gotham Narrow alternative
+				'sans': ['Inter', 'Helvetica Neue', 'Arial', 'sans-serif'],
 			},
 			colors: {
 				border: 'hsl(var(--border))',

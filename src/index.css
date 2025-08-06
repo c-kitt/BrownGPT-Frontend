@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Source+Serif+Pro:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto+Condensed:wght@300;400;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -27,11 +27,11 @@
     --primary: var(--brand-red);
     --primary-foreground: var(--brand-white);
     
-    --secondary: 21 31% 30%;
-    --secondary-foreground: var(--brand-white);
+    --secondary: var(--brand-yellow);
+    --secondary-foreground: var(--brand-brown);
     
-    --muted: 21 31% 30%;
-    --muted-foreground: var(--brand-gray);
+    --muted: var(--brand-gray);
+    --muted-foreground: var(--brand-white);
     
     --accent: var(--brand-yellow);
     --accent-foreground: var(--brand-brown);
@@ -39,27 +39,27 @@
     --destructive: var(--brand-red);
     --destructive-foreground: var(--brand-white);
     
-    --border: 21 31% 35%;
+    --border: var(--brand-gray);
     --input: 21 31% 30%;
-    --ring: var(--brand-red);
+    --ring: var(--brand-yellow);
     
     --radius: 0.75rem;
     
     /* Chat-specific colors */
     --chat-user-bg: var(--brand-red);
     --chat-user-text: var(--brand-white);
-    --chat-ai-bg: 21 31% 30%;
+    --chat-ai-bg: var(--brand-gray);
     --chat-ai-text: var(--brand-white);
-    --chat-ai-border: var(--brand-red);
+    --chat-ai-border: var(--brand-yellow);
 
     /* Sidebar colors */
     --sidebar-background: 21 31% 25%;
     --sidebar-foreground: var(--brand-white);
-    --sidebar-primary: var(--brand-red);
-    --sidebar-primary-foreground: var(--brand-white);
-    --sidebar-accent: 21 31% 30%;
+    --sidebar-primary: var(--brand-yellow);
+    --sidebar-primary-foreground: var(--brand-brown);
+    --sidebar-accent: var(--brand-red);
     --sidebar-accent-foreground: var(--brand-white);
-    --sidebar-border: 21 31% 35%;
+    --sidebar-border: var(--brand-gray);
     --sidebar-ring: var(--brand-yellow);
     
     /* Animations and transitions */
@@ -74,11 +74,11 @@
   }
 
   body {
-    @apply bg-background text-foreground font-sans;
+    @apply bg-background text-foreground font-freight;
   }
   
   h1, h2, h3, h4, h5, h6 {
-    @apply font-sans;
+    @apply font-gotham;
   }
 }
 
