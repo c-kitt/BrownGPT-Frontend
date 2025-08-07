@@ -106,6 +106,11 @@ const Index = () => {
     setIsTyping(false);
     setQuestionStep(0);
     setUserResponses({});
+    
+    // Trigger initial message after a short delay
+    setTimeout(() => {
+      addMessage("Hi there! Let's get started. What year are you?", false, YEAR_OPTIONS);
+    }, 500);
   };
 
   return (
