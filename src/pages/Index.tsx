@@ -24,6 +24,7 @@ const Index = () => {
   const [questionStep, setQuestionStep] = useState(0); // 0: year, 1: semester, 2: concentration
   const [userResponses, setUserResponses] = useState<{year?: string, semester?: string, concentration?: string}>({});
   const [recentChats, setRecentChats] = useState<string[]>([]);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   // Auto-start conversation when component mounts
   useEffect(() => {
@@ -124,11 +125,48 @@ const Index = () => {
     }, 500);
   };
 
+  const toggleSidebar = () => {
+    setIsSidebarOpen(prev => !prev);
+  };
+
   return (
     <div className="h-screen flex bg-background">
-      <ChatSidebar onNewChat={handleNewChat} recentChats={recentChats} />
+      {/* Mobile overlay */}
+      {isSidebarOpen && (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
+          onClick={toggleSidebar}
+        />
+      )}
+      
+      {/* Sidebar */}
+      <div className={`
+        ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'} 
+        fixed lg:relative z-50 lg:z-auto transition-transform duration-300 ease-in-out
+      `}>
+        <ChatSidebar 
+          onNewChat={handleNewChat} 
+          recentChats={recentChats}
+          onToggleSidebar={toggleSidebar}
+        />
+      </div>
       
       <div className="flex-1 flex flex-col">
+        {/* Mobile header with menu button */}
+        <div className="lg:hidden flex items-center p-4 border-b border-[hsl(var(--sidebar-border))]">
+          <button
+            onClick={toggleSidebar}
+            className="text-[hsl(var(--brown-dark))] hover:bg-[hsl(var(--brown-light))] p-2 rounded-md"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+          <span className="ml-3 font-serif text-lg text-[hsl(var(--brown-dark))] font-bold">
+            BrownGPT
+          </span>
+        </div>
+        
         <ScrollArea className="flex-1">
           <div className="max-w-4xl mx-auto p-6">
             {!hasStartedChat && (
