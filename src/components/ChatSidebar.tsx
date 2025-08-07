@@ -1,21 +1,22 @@
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { MessageSquare, Plus, BookOpen, Calendar, GraduationCap } from "lucide-react";
+import { MessageSquare, Plus, BookOpen, Calendar } from "lucide-react";
+
 interface ChatSidebarProps {
   onNewChat: () => void;
 }
 export const ChatSidebar = ({
   onNewChat
 }: ChatSidebarProps) => {
-  const recentChats = ["Course Planning Help", "Concentration Requirements", "Study Abroad Options", "Research Opportunities"];
+  const recentChats: string[] = [];
   return <div className="w-64 bg-[hsl(var(--sidebar-background))] border-r border-[hsl(var(--sidebar-border))] flex flex-col h-full">
       {/* Header with Brown crest and title */}
       <div className="p-4 border-b border-[hsl(var(--sidebar-border))]">
         <div className="flex items-center space-x-3 mb-4">
-          <div className="w-8 h-8 bg-[hsl(var(--brown-red))] rounded-full flex items-center justify-center">
-            <GraduationCap className="w-5 h-5 text-white" />
+          <div className="w-8 h-8 rounded-full flex items-center justify-center overflow-hidden">
+            <img src="/lovable-uploads/0ef44bb7-cd5e-4b1a-a1a8-25c93a89fbd1.png" alt="Brown Bear Mascot" className="w-8 h-8 object-contain" />
           </div>
-          <span className="font-sans text-lg text-[hsl(var(--brown-dark))] font-bold">
+          <span className="font-serif text-lg text-[hsl(var(--brown-dark))] font-bold">
             BrownGPT
           </span>
         </div>
