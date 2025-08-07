@@ -8,10 +8,10 @@ export const InitialPrompts = ({
   return (
     <div className="flex items-center justify-center min-h-[60vh]">
       <div className="text-center">
-        <h1 className="text-4xl font-bold text-[hsl(var(--brown-dark))] mb-4 font-sans">
+        <h1 className="text-4xl font-bold text-[hsl(var(--brown-dark))] mb-4 font-serif">
           How can I help, Bruno?
         </h1>
-        <p className="text-xl text-[hsl(var(--brown-red))] font-medium">
+        <p className="text-xl text-[hsl(var(--brown-red))] font-medium font-serif">
           Welcome to BrownGPT. Let's make your Open Curriculum work for you.
         </p>
       </div>

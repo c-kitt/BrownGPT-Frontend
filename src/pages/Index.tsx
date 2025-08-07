@@ -28,10 +28,7 @@ const Index = () => {
   useEffect(() => {
     if (messages.length === 0) {
       setTimeout(() => {
-        addMessage("Hi there! Let's get started.", false);
-        setTimeout(() => {
-          addMessage("What year are you?", false, YEAR_OPTIONS);
-        }, 1000);
+        addMessage("Hi there! Let's get started. What year are you?", false, YEAR_OPTIONS);
       }, 500);
     }
   }, []);
