@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { ExternalLink } from "lucide-react";
 
 interface ChatBubbleProps {
   message: string;
@@ -29,9 +30,12 @@ export const ChatBubble = ({ message, isUser, className, options, onOptionClick 
                 key={index}
                 variant="outline"
                 onClick={() => onOptionClick?.(option)}
-                className="border-[hsl(var(--brown-dark))] text-[hsl(var(--brown-dark))] hover:bg-[hsl(var(--brown-light))]"
+                className="border-[hsl(var(--brown-dark))] text-[hsl(var(--brown-dark))] hover:bg-[hsl(var(--brown-light))] flex items-center gap-2"
               >
                 {option}
+                {option === "See concentrations here" && (
+                  <ExternalLink className="w-4 h-4" />
+                )}
               </Button>
             ))}
           </div>
