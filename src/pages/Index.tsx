@@ -23,6 +23,7 @@ const Index = () => {
   const [hasStartedChat, setHasStartedChat] = useState(false);
   const [questionStep, setQuestionStep] = useState(0); // 0: year, 1: semester, 2: concentration
   const [userResponses, setUserResponses] = useState<{year?: string, semester?: string, concentration?: string}>({});
+  const [recentChats, setRecentChats] = useState<string[]>([]);
 
   // Auto-start conversation when component mounts
   useEffect(() => {
@@ -81,6 +82,11 @@ const Index = () => {
         const finalResponses = { ...userResponses, concentration: response };
         setUserResponses(finalResponses);
         console.log('All user responses:', finalResponses);
+        
+        // Save this chat to recent chats
+        const chatTitle = `${finalResponses.year} - ${finalResponses.concentration}`;
+        setRecentChats(prev => [chatTitle, ...prev.slice(0, 9)]); // Keep max 10 recent chats
+        
         addMessage("Perfect! I now have all the information I need to help you. Based on your responses, I can assist you with course planning, concentration requirements, and making the most of Brown's Open Curriculum. What would you like to explore first?", false);
       }
     }, 1500);
@@ -120,7 +126,7 @@ const Index = () => {
 
   return (
     <div className="h-screen flex bg-background">
-      <ChatSidebar onNewChat={handleNewChat} />
+      <ChatSidebar onNewChat={handleNewChat} recentChats={recentChats} />
       
       <div className="flex-1 flex flex-col">
         <ScrollArea className="flex-1">

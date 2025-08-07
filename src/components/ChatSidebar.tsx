@@ -4,11 +4,12 @@ import { MessageSquare, Plus, BookOpen, Calendar } from "lucide-react";
 
 interface ChatSidebarProps {
   onNewChat: () => void;
+  recentChats?: string[];
 }
 export const ChatSidebar = ({
-  onNewChat
+  onNewChat,
+  recentChats = []
 }: ChatSidebarProps) => {
-  const recentChats: string[] = [];
   return <div className="w-64 bg-[hsl(var(--sidebar-background))] border-r border-[hsl(var(--sidebar-border))] flex flex-col h-full">
       {/* Header with Brown crest and title */}
       <div className="p-4 border-b border-[hsl(var(--sidebar-border))]">
