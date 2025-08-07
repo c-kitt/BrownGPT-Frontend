@@ -12,7 +12,7 @@ interface ChatBubbleProps {
 
 export const ChatBubble = ({ message, isUser, className, options, onOptionClick }: ChatBubbleProps) => {
   return (
-    <div className={cn("flex w-full", isUser ? "justify-end mb-4" : "justify-start mb-8")}>
+    <div className={cn("flex w-full", isUser ? "justify-end mb-8" : "justify-start mb-12")}>
       <div className="max-w-[80%]">
         <div
           className={cn(
