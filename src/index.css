@@ -84,7 +84,7 @@
 @layer components {
   /* Chat Message Styles */
   .chat-message-user {
-    @apply bg-[hsl(var(--chat-user-bg))] text-[hsl(var(--chat-user-text))] rounded-2xl px-4 py-3 max-w-[80%] ml-auto shadow-sm break-normal w-fit min-w-[120px] text-center;
+    @apply bg-[hsl(var(--chat-user-bg))] text-[hsl(var(--chat-user-text))] rounded-2xl px-4 py-3 max-w-[80%] ml-auto shadow-sm break-normal w-fit min-w-[120px];
   }
   
   .chat-message-ai {
