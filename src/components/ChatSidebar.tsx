@@ -40,17 +40,5 @@ export const ChatSidebar = ({
         </Button>
       </div>
 
-      {/* Recent Chats */}
-      <div className="flex-1 px-4 pb-4">
-        <h3 className="text-sm font-medium text-[hsl(var(--muted-foreground))] mb-3 font-serif">Recent</h3>
-        <ScrollArea className="h-full">
-          <div className="space-y-1">
-            {recentChats.map((chat, index) => <Button key={index} variant="ghost" className="w-full justify-start text-left text-sm text-[hsl(var(--brown-dark))] hover:bg-[hsl(var(--brown-light))] h-auto p-2">
-                <MessageSquare className="w-3 h-3 mr-2 flex-shrink-0" />
-                <span className="truncate">{chat}</span>
-              </Button>)}
-          </div>
-        </ScrollArea>
-      </div>
     </div>;
 };
