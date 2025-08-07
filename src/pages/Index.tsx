@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { ChatSidebar } from "@/components/ChatSidebar";
 import { ChatBubble } from "@/components/ChatBubble";
 import { TypingIndicator } from "@/components/TypingIndicator";
@@ -25,6 +25,15 @@ const Index = () => {
   const [userResponses, setUserResponses] = useState<{year?: string, semester?: string, concentration?: string}>({});
   const [recentChats, setRecentChats] = useState<string[]>([]);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [isAtBottom, setIsAtBottom] = useState(true);
+
+  // Auto-scroll to bottom when new messages are added
+  useEffect(() => {
+    if (isAtBottom && scrollRef.current) {
+      scrollRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages, isTyping, isAtBottom]);
 
   // Auto-start conversation when component mounts
   useEffect(() => {
@@ -34,6 +43,13 @@ const Index = () => {
       }, 500);
     }
   }, []);
+
+  // Handle scroll detection
+  const handleScroll = (event: React.UIEvent<HTMLDivElement>) => {
+    const element = event.currentTarget;
+    const isNearBottom = element.scrollHeight - element.scrollTop - element.clientHeight < 100;
+    setIsAtBottom(isNearBottom);
+  };
 
   const addMessage = (content: string, isUser: boolean, options?: string[]) => {
     const newMessage: Message = {
@@ -167,7 +183,7 @@ const Index = () => {
           </span>
         </div>
         
-        <ScrollArea className="flex-1">
+        <ScrollArea className="flex-1" onScroll={handleScroll}>
           <div className="max-w-4xl mx-auto p-6">
             {!hasStartedChat && (
               <InitialPrompts onPromptClick={handleSendMessage} />
@@ -184,6 +200,7 @@ const Index = () => {
                   />
                 ))}
                 {isTyping && <TypingIndicator />}
+                <div ref={scrollRef} />
               </div>
             )}
           </div>
