@@ -16,7 +16,7 @@ export const ChatBubble = ({ message, isUser, className, options, onOptionClick 
       <div className="max-w-[80%]">
         <div
           className={cn(
-            "text-base leading-relaxed",
+            "text-base leading-relaxed mt-8",
             isUser ? "chat-message-user" : "chat-message-ai",
             className
           )}
