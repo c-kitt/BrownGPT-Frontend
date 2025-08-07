@@ -45,6 +45,11 @@ const Index = () => {
   };
 
   const handleOptionClick = (option: string) => {
+    if (option === "See concentrations here") {
+      window.open("https://www.brown.edu/academics/undergraduate/concentrations", "_blank");
+      return;
+    }
+    
     if (!hasStartedChat) {
       setHasStartedChat(true);
     }
@@ -69,7 +74,7 @@ const Index = () => {
         console.log(`User semester: ${response}`);
         setUserResponses(prev => ({ ...prev, semester: response }));
         setQuestionStep(2);
-        addMessage("What concentration are you interested in or currently studying?", false);
+        addMessage("What concentration are you interested in or currently studying? (Type below!)", false, ["See concentrations here"]);
       } else {
         // Concentration question answered
         console.log(`User concentration: ${response}`);
