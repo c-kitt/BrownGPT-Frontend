@@ -197,6 +197,7 @@ const Index = () => {
                     isUser={message.isUser}
                     options={message.options}
                     onOptionClick={handleOptionClick}
+                    isOnboarding={questionStep < 3}
                   />
                 ))}
                 {isTyping && <TypingIndicator />}

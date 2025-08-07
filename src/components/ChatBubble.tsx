@@ -8,11 +8,13 @@ interface ChatBubbleProps {
   className?: string;
   options?: string[];
   onOptionClick?: (option: string) => void;
+  isOnboarding?: boolean;
 }
 
-export const ChatBubble = ({ message, isUser, className, options, onOptionClick }: ChatBubbleProps) => {
+export const ChatBubble = ({ message, isUser, className, options, onOptionClick, isOnboarding = false }: ChatBubbleProps) => {
+  const spacing = isOnboarding ? (isUser ? "mb-4" : "mb-4") : (isUser ? "mb-8" : "mb-12");
   return (
-    <div className={cn("flex w-full", isUser ? "justify-end mb-8" : "justify-start mb-12")}>
+    <div className={cn("flex w-full", isUser ? "justify-end" : "justify-start", spacing)}>
       <div className="max-w-[80%]">
         <div
           className={cn(
