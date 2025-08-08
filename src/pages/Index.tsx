@@ -28,8 +28,65 @@ const SEMESTER_OPTIONS = ["Fall 2025", "Spring 2026"];
 const MAIN_ACTIONS = [
   "Recommend courses for my concentration",
   "Create a sample schedule",
-  "Check my schedule for conflicts"
+  "Check my schedule for conflicts",
+  "Help!"  // Added Help button
 ];
+
+// Help message content
+const HELP_MESSAGE = `🎓 **Here are some things I can help you with:**
+
+**Course Recommendations:**
+- "What are the best intro CS courses for freshmen?"
+- "Recommend easy classes to boost my GPA"
+- "What are popular electives in Economics?"
+- "Which professors are best for MATH 0100?"
+
+**Schedule Building:**
+- "Build me a schedule with no Friday classes"
+- "Create a balanced schedule for my first semester"
+- "Make a schedule with CSCI 0150 and MATH 0180"
+- "I need 4 courses that don't start before 10am"
+
+**Specific Course Info:**
+- "Tell me about CSCI 0150"
+- "Is ECON 0110 difficult?"
+- "What are the prerequisites for APMA 1650?"
+- "When is BIOL 0200 offered?"
+
+**Schedule Modifications:**
+- "Can I replace MATH 0100 with something easier?"
+- "I want to drop CHEM 0330, what should I take instead?"
+- "Is there a philosophy course that counts for my math requirement?"
+- "Find me an alternative to this 9am class"
+
+**Concentration Planning:**
+- "What courses do I need for the CS concentration?"
+- "How many electives can I take as an Econ major?"
+- "What's the typical course sequence for Applied Math?"
+- "Can I double concentrate in CS and Math?"
+
+**Conflict Checking:**
+- "Do CSCI 0150 and PHYS 0070 conflict?"
+- "Can I take these 5 classes without time conflicts?"
+- "Check if my schedule has any overlaps"
+
+**Professor & Course Reviews:**
+- "Who's the best professor for Linear Algebra?"
+- "Is Professor Krishnamurthi's class worth taking?"
+- "What do students say about PHIL 0100?"
+- "Find highly-rated humanities courses"
+
+**Advanced Planning:**
+- "Plan my next 4 semesters as a CS major"
+- "What summer courses should I take?"
+- "How can I fulfill my writing requirement?"
+- "What's the easiest path to complete my concentration?"
+
+💡 **Pro tips:** 
+- I remember our conversation, so you can ask follow-ups like "what about that second course?"
+- You can modify schedules I create: "replace the math class with something else"
+- I know about prerequisites, meeting times, and professor ratings
+- Feel free to ask about specific scenarios or constraints!`;
 
 const Index = () => {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -101,6 +158,31 @@ const Index = () => {
            !message.includes("trouble");
   };
 
+  // Helper function to check if input should be disabled
+  const isInputDisabled = () => {
+    // Disable input during onboarding for year and semester selection (steps 0 and 1)
+    // Enable it only for concentration input (step 2)
+    // Also enable after context is set
+    if (!contextSet) {
+      return questionStep < 2 || waitingForConfirmation || isTyping;
+    }
+    return isTyping;
+  };
+
+  // Helper function to get the right placeholder text
+  const getPlaceholder = () => {
+    if (!contextSet) {
+      if (questionStep < 2) {
+        return "Please select an option above...";
+      } else if (questionStep === 2 && !waitingForConfirmation) {
+        return "Type your concentration (e.g., 'Computer Science', 'CS', 'Economics')...";
+      } else if (waitingForConfirmation) {
+        return "Please confirm above...";
+      }
+    }
+    return "Ask me anything about Brown courses...";
+  };
+
   // Regular addMessage for all messages
   const addMessage = (content: string, isUser: boolean, options?: string[]) => {
     const newMessage: Message = {
@@ -165,6 +247,18 @@ const Index = () => {
       setShowInitialPrompt(false);
     }
     
+    // Handle Help button specially
+    if (option === "Help!") {
+      addMessage(option, true);
+      setIsTyping(true);
+      
+      setTimeout(() => {
+        setIsTyping(false);
+        addAIMessage(HELP_MESSAGE, true);
+      }, 500);
+      return;
+    }
+    
     addMessage(option, true);
     
     // Handle confirmation responses
@@ -183,7 +277,7 @@ const Index = () => {
       return;
     }
     
-    // Handle main action options - THIS IS THE KEY FIX
+    // Handle main action options
     if (contextSet && MAIN_ACTIONS.includes(option)) {
       await handleMainAction(option);
       return;
@@ -214,6 +308,11 @@ const Index = () => {
   };
 
   const handleMainAction = async (action: string) => {
+    // Don't process Help! here since it's handled in handleOptionClick
+    if (action === "Help!") {
+      return;
+    }
+    
     setIsTyping(true);
     
     // Build the ACTUAL query based on the SPECIFIC action clicked
@@ -442,14 +541,8 @@ const Index = () => {
         
         <ChatInput 
           onSendMessage={handleSendMessage}
-          disabled={isTyping}
-          placeholder={
-            contextSet 
-              ? "Ask me anything about courses..." 
-              : questionStep === 2 
-                ? "Type your concentration..."
-                : "Select an option above"
-          }
+          disabled={isInputDisabled()}
+          placeholder={getPlaceholder()}
         />
       </div>
     </div>
