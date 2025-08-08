@@ -3,6 +3,9 @@
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { MessageSquare, Plus, BookOpen, Calendar, Menu, FileText, User, AlertCircle } from "lucide-react";
+import { ThemeToggle } from "@/components/ThemeToggle";
+import { useTheme } from "@/components/ThemeProvider";
+import { Moon, Sun } from "lucide-react";
 
 interface ChatSidebarProps {
   onNewChat: () => void;
@@ -15,6 +18,8 @@ export const ChatSidebar = ({
   recentChats = [],
   onToggleSidebar
 }: ChatSidebarProps) => {
+  const { theme, setTheme } = useTheme();
+  
   const handleOpenLink = (url: string) => {
     window.open(url, '_blank');
   };
@@ -81,10 +86,10 @@ export const ChatSidebar = ({
         
         {/* Disclaimer Box */}
         <div className="px-4 pb-4">
-          <div className="border border-red-500 rounded-lg p-3 bg-red-50">
+          <div className="border border-red-500 rounded-lg p-3 bg-red-50 dark:bg-red-950/20 dark:border-red-800">
             <div className="flex items-start space-x-2">
-              <AlertCircle className="w-4 h-4 text-red-600 mt-0.5 flex-shrink-0" />
-              <div className="text-xs text-red-700">
+              <AlertCircle className="w-4 h-4 text-red-600 dark:text-red-400 mt-0.5 flex-shrink-0" />
+              <div className="text-xs text-red-700 dark:text-red-300">
                 <p className="font-semibold mb-1">Early Beta Version</p>
                 <p>BrownGPT is in early development and may not be fully accurate. Always verify information with your academic advisors and refer to official Brown resources. Please allow 5 - 15 seconds for a response</p>
               </div>
@@ -92,8 +97,27 @@ export const ChatSidebar = ({
           </div>
         </div>
         
-        {/* Spacer to push About Me to bottom */}
+        {/* Spacer to push bottom items down */}
         <div className="flex-1" />
+        
+        {/* Theme Toggle */}
+        <div className="px-4 pb-2">
+          <button 
+            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+            className="flex items-center justify-between p-2 rounded hover:bg-[hsl(var(--brown-light))] w-full transition-colors"
+          >
+            <span className="text-sm text-[hsl(var(--brown-dark))]">
+              {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
+            </span>
+            <div className="w-9 h-9 flex items-center justify-center">
+              {theme === 'light' ? (
+                <Moon className="h-[1.2rem] w-[1.2rem]" />
+              ) : (
+                <Sun className="h-[1.2rem] w-[1.2rem]" />
+              )}
+            </div>
+          </button>
+        </div>
         
         {/* About Me at bottom */}
         <div className="p-4 border-t border-[hsl(var(--sidebar-border))]">

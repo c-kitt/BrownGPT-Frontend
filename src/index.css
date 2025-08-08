@@ -65,6 +65,60 @@
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --typing-animation: typing 1.5s infinite ease-in-out;
   }
+
+  .dark {
+    /* Brown University Dark Mode Palette */
+    --brown-parchment: 22 20% 12%; /* Dark background */
+    --brown-dark: 30 20% 85%; /* Light text */
+    --brown-red: 351 68% 48%; /* Brighter red for dark mode */
+    --brown-light: 22 15% 20%; /* Dark surface */
+    
+    /* Primary Design System - Dark Mode */
+    --background: 22 20% 10%; /* Very dark brown */
+    --foreground: 30 20% 90%; /* Light cream */
+    
+    --card: 22 20% 14%;
+    --card-foreground: 30 20% 90%;
+    
+    --popover: 22 20% 14%;
+    --popover-foreground: 30 20% 90%;
+    
+    --primary: 30 20% 85%;
+    --primary-foreground: 22 20% 10%;
+    
+    --secondary: 22 15% 20%;
+    --secondary-foreground: 30 20% 85%;
+    
+    --muted: 22 15% 25%;
+    --muted-foreground: 30 20% 65%;
+    
+    --accent: 351 68% 48%;
+    --accent-foreground: 0 0% 100%;
+    
+    --destructive: 0 62.8% 50.6%;
+    --destructive-foreground: 0 0% 100%;
+    
+    --border: 22 15% 25%;
+    --input: 22 15% 25%;
+    --ring: 351 68% 48%;
+    
+    /* Chat-specific colors - Dark Mode */
+    --chat-user-bg: 22 20% 18%;
+    --chat-user-text: 30 20% 85%;
+    --chat-ai-bg: 22 20% 14%;
+    --chat-ai-text: 351 68% 65%;
+    --chat-ai-border: 22 15% 30%;
+
+    /* Sidebar colors - Dark Mode */
+    --sidebar-background: 22 20% 12%;
+    --sidebar-foreground: 30 20% 85%;
+    --sidebar-primary: 351 68% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 22 15% 20%;
+    --sidebar-accent-foreground: 30 20% 85%;
+    --sidebar-border: 22 15% 20%;
+    --sidebar-ring: 351 68% 48%;
+  }
 }
 
 @layer base {
