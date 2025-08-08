@@ -86,7 +86,7 @@ export const ChatSidebar = ({
               <AlertCircle className="w-4 h-4 text-red-600 mt-0.5 flex-shrink-0" />
               <div className="text-xs text-red-700">
                 <p className="font-semibold mb-1">Early Beta Version</p>
-                <p>BrownGPT is in early development and may not be fully accurate. Always verify information with your academic advisors and refer to official Brown resources.</p>
+                <p>BrownGPT is in early development and may not be fully accurate. Always verify information with your academic advisors and refer to official Brown resources. Please allow 5 - 15 seconds for a response</p>
               </div>
             </div>
           </div>
